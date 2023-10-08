@@ -93,8 +93,8 @@ fun DiaryAppTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> LightColors
-        else -> DarkColors
+        darkTheme -> DarkColors
+        else -> LightColors
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
