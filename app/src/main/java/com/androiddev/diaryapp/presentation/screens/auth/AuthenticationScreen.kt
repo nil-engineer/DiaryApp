@@ -24,7 +24,7 @@ fun AuthenticationScreen(
     onDialogDismissed: (String) -> Unit
 ) {
     Scaffold(content = {
-        ContentWithMessageBar(messageBarState = messageBarState){
+        ContentWithMessageBar(messageBarState = messageBarState, errorMaxLines = 3){
             AuthenticationContent(
                 loadingState = loadingState,
                 onButtonClicked = onButtonClicked

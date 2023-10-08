@@ -124,10 +124,4 @@ dependencies {
 
     // Desugar JDK
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
-
-    // Google Auth
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
-
-    // JWT Decoder
-    implementation("com.auth0.android:jwtdecode:2.0.2")
 }

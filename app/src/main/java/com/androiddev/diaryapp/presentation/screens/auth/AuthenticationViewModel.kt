@@ -26,10 +26,10 @@ class AuthenticationViewModel : ViewModel() {
     ) {
         viewModelScope.launch {
             try{
-                val result = withContext(Dispatchers.IO){
+                val result = withContext(Dispatchers.Main){
                     App.create(APP_ID).login(
-//                        Credentials.jwt(tokenId)
-                        Credentials.google(tokenId, GoogleAuthType.ID_TOKEN)
+                        Credentials.jwt(tokenId)
+//                        Credentials.google(tokenId, GoogleAuthType.ID_TOKEN)
                     ).loggedIn
                 }
                 withContext(Dispatchers.Main){
