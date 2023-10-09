@@ -4,7 +4,7 @@ buildscript{
         val compose_version = "1.4.3"
 //    }
     dependencies{
-        classpath("com.google.gms:google-services:4.3.14")
+        classpath("com.google.gms:google-services:4.4.0")
     }
 }
 plugins {
@@ -13,6 +13,6 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.8.10" apply false
     id("io.realm.kotlin") version "1.11.0" apply false
     id("com.google.dagger.hilt.android") version "2.48" apply false
-//    id("com.google.gms.google-services") version "4.3.15" apply false
+    id("com.google.gms.google-services") version "4.4.0" apply false
     id("com.google.devtools.ksp") version "1.8.20-1.0.11" apply false
 }

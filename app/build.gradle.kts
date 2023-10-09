@@ -4,7 +4,7 @@ plugins {
     id("io.realm.kotlin")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-//    id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
 
 }
@@ -120,8 +120,14 @@ dependencies {
     implementation("com.github.stevdza-san:MessageBarCompose:1.0.5")
 
     // One-Tap Compose
-    implementation("com.github.stevdza-san:OneTapCompose:1.0.7")
+    implementation("com.github.stevdza-san:OneTapCompose:1.0.8")
 
     // Desugar JDK
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+
+    // Google Auth
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // JWT Decoder
+    implementation("com.auth0.android:jwtdecode:2.0.2")
 }
