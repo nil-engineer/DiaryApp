@@ -57,7 +57,7 @@ fun HomeScreen(
                 }
             },
             content = {
-
+                HomeContent(diaryNotes = mapOf(), onClick = {})
             })
     }
 }
