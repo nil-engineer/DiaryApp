@@ -1,6 +1,10 @@
 package com.androiddev.diaryapp.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -64,36 +68,44 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                 .height(componentHeight + 14.dp),
             tonalElevation = Elevation.Level1
         ) {}
-            Spacer(modifier = Modifier.width(20.dp))
-            Surface(
-                modifier = Modifier.clip(shape = Shapes().medium).onGloballyPositioned {
-                    componentHeight = with(localDensity) { it.size.height.toDp() }
-                },
-                tonalElevation = Elevation.Level1
-            ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    DiaryHeader(moodName = diary.mood, time = diary.date.toInstant())
-                    Text(
-                        modifier = Modifier.padding(all = 14.dp),
-                        text = diary.description,
-                        style = TextStyle(fontSize = MaterialTheme.typography.bodyLarge.fontSize),
-                        maxLines = 4,
-                        overflow = TextOverflow.Ellipsis
+        Spacer(modifier = Modifier.width(20.dp))
+        Surface(
+            modifier = Modifier.clip(shape = Shapes().medium).onGloballyPositioned {
+                componentHeight = with(localDensity) { it.size.height.toDp() }
+            },
+            tonalElevation = Elevation.Level1
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                DiaryHeader(moodName = diary.mood, time = diary.date.toInstant())
+                Text(
+                    modifier = Modifier.padding(all = 14.dp),
+                    text = diary.description,
+                    style = TextStyle(fontSize = MaterialTheme.typography.bodyLarge.fontSize),
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis
+                )
+                if (diary.images.isNotEmpty()) {
+                    ShowGalleryButton(
+                        galleryOpened = galleryOpened,
+                        onClick = {
+                            galleryOpened = !galleryOpened
+                        })
+                }
+                AnimatedVisibility(
+                    visible = galleryOpened,
+                    enter = fadeIn() + expandVertically(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessLow
+                        )
                     )
-                    if (diary.images.isNotEmpty()) {
-                        ShowGalleryButton(
-                            galleryOpened = galleryOpened,
-                            onClick = {
-                                galleryOpened = !galleryOpened
-                            })
-                    }
-                    AnimatedVisibility(visible = galleryOpened) {
-                        Column(modifier = Modifier.padding(all = 14.dp)) {
-                            Gallery(images = diary.images)
-                        }
+                ) {
+                    Column(modifier = Modifier.padding(all = 14.dp)) {
+                        Gallery(images = diary.images)
                     }
                 }
             }
+        }
 
     }
 }
