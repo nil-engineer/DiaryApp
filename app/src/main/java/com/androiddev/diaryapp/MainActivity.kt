@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
+        MongoDB.configureTheRealm()
         setContent {
             DiaryAppTheme {
                 val navController = rememberNavController()
