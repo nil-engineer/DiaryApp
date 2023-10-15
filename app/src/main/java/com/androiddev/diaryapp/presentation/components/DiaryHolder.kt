@@ -59,9 +59,11 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
         ) { onClick(diary._id.toString()) }) {
         Spacer(modifier = Modifier.width(14.dp))
         Surface(
-            modifier = Modifier.width(2.dp).height(componentHeight + 14.dp),
+            modifier = Modifier
+                .width(2.dp)
+                .height(componentHeight + 14.dp),
             tonalElevation = Elevation.Level1
-        ) {
+        ) {}
             Spacer(modifier = Modifier.width(20.dp))
             Surface(
                 modifier = Modifier.clip(shape = Shapes().medium).onGloballyPositioned {
@@ -82,17 +84,17 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                         ShowGalleryButton(
                             galleryOpened = galleryOpened,
                             onClick = {
-                            galleryOpened = !galleryOpened
-                        })
+                                galleryOpened = !galleryOpened
+                            })
                     }
-                    AnimatedVisibility(visible = galleryOpened){
+                    AnimatedVisibility(visible = galleryOpened) {
                         Column(modifier = Modifier.padding(all = 14.dp)) {
                             Gallery(images = diary.images)
                         }
                     }
                 }
             }
-        }
+
     }
 }
 
@@ -143,7 +145,7 @@ fun ShowGalleryButton(
 //            text = if (galleryOpened)
 //                if (galleryLoading) "Loading" else "Hide Gallery"
 //            else "Show Gallery",
-            text = if(galleryOpened) "Hide Gallery" else "Show Gallery",
+            text = if (galleryOpened) "Hide Gallery" else "Show Gallery",
             style = TextStyle(fontSize = MaterialTheme.typography.bodySmall.fontSize)
         )
     }
