@@ -16,7 +16,7 @@ fun DisplayAlertDialog(
     title: String,
     message: String,
     dialogOpened: Boolean,
-    onCloseDialog: () -> Unit,
+    onDialogClosed: () -> Unit,
     onYesClicked: () -> Unit,
 ) {
     if (dialogOpened) {
@@ -39,19 +39,19 @@ fun DisplayAlertDialog(
                 Button(
                     onClick = {
                         onYesClicked()
-                        onCloseDialog()
+                        onDialogClosed()
                     })
                 {
                     Text(text = "Yes")
                 }
             },
             dismissButton = {
-                OutlinedButton(onClick = onCloseDialog)
+                OutlinedButton(onClick = onDialogClosed)
                 {
                     Text(text = "No")
                 }
             },
-            onDismissRequest = onCloseDialog
+            onDismissRequest = onDialogClosed
         )
     }
 }

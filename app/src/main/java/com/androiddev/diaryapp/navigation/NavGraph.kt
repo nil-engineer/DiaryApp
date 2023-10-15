@@ -28,11 +28,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.androiddev.diaryapp.data.repository.MongoDB
+import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.presentation.components.DisplayAlertDialog
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationViewModel
 import com.androiddev.diaryapp.presentation.screens.home.HomeScreen
 import com.androiddev.diaryapp.presentation.screens.home.HomeViewModel
+import com.androiddev.diaryapp.presentation.screens.write.WriteScreen
 import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.androiddev.diaryapp.util.RequestState
@@ -53,11 +55,13 @@ fun SetupNavGraph(
         startDestination = startDestination,
         navController = navController
     ) {
-        authenticationRoute(navigateToHome = {
-            navController.popBackStack()
-            navController.navigate(Screen.Home.route)
-        },
-            onDataLoaded = onDataLoaded)
+        authenticationRoute(
+            navigateToHome = {
+                navController.popBackStack()
+                navController.navigate(Screen.Home.route)
+            },
+            onDataLoaded = onDataLoaded
+        )
         homeRoute(
             navigateToWrite = {
                 navController.navigate(Screen.Write.route)
@@ -68,7 +72,9 @@ fun SetupNavGraph(
             },
             onDataLoaded = onDataLoaded
         )
-        writeRoute()
+        writeRoute(onBackPressed = {
+            navController.popBackStack()
+        })
     }
 }
 
@@ -81,7 +87,7 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit, onDataLoaded
         val oneTapState = rememberOneTapSignInState()
         val messageBarState = rememberMessageBarState()
 
-        LaunchedEffect(key1 = Unit){
+        LaunchedEffect(key1 = Unit) {
             onDataLoaded()
         }
         AuthenticationScreen(
@@ -158,7 +164,7 @@ fun NavGraphBuilder.homeRoute(
             title = "Sign Out",
             message = "Are you sure you want to Sign Out your Google Acount?",
             dialogOpened = signOutDialogOpened,
-            onCloseDialog = { signOutDialogOpened = false },
+            onDialogClosed = { signOutDialogOpened = false },
             onYesClicked = {
                 scope.launch(Dispatchers.IO) {
                     val user = App.create(APP_ID).currentUser
@@ -173,15 +179,18 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
-fun NavGraphBuilder.writeRoute() {
+fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
     composable(
         route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
             type = NavType.StringType
-            nullable = true
+            nullable = true  
             defaultValue = null
         })
     ) {
-
+        WriteScreen(
+            selectedDiary = null,
+            onDeleteConfirmed = {},
+            onBackPressed = onBackPressed)
     }
 }
