@@ -3,9 +3,11 @@ package com.androiddev.diaryapp.navigation
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,12 +31,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.androiddev.diaryapp.data.repository.MongoDB
 import com.androiddev.diaryapp.model.Diary
+import com.androiddev.diaryapp.model.Mood
 import com.androiddev.diaryapp.presentation.components.DisplayAlertDialog
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationViewModel
 import com.androiddev.diaryapp.presentation.screens.home.HomeScreen
 import com.androiddev.diaryapp.presentation.screens.home.HomeViewModel
 import com.androiddev.diaryapp.presentation.screens.write.WriteScreen
+import com.androiddev.diaryapp.presentation.screens.write.WriteViewModel
 import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.androiddev.diaryapp.util.RequestState
@@ -65,6 +69,9 @@ fun SetupNavGraph(
         homeRoute(
             navigateToWrite = {
                 navController.navigate(Screen.Write.route)
+            },
+            navigateToWriteWithArgs = {
+                navController.navigate(Screen.Write.passDiaryId(diaryId = it))
             },
             navigateToAuth = {
                 navController.popBackStack()
@@ -126,6 +133,7 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit, onDataLoaded
 
 fun NavGraphBuilder.homeRoute(
     navigateToWrite: () -> Unit,
+    navigateToWriteWithArgs: (String) -> Unit,
     navigateToAuth: () -> Unit,
     onDataLoaded: () -> Unit
 ) {
@@ -155,7 +163,8 @@ fun NavGraphBuilder.homeRoute(
             onSignOutClicked = {
                 signOutDialogOpened = true
             },
-            navigateToWrite = navigateToWrite
+            navigateToWrite = navigateToWrite,
+            navigateToWriteWithArgs = navigateToWriteWithArgs
         )
         LaunchedEffect(key1 = Unit) {
             MongoDB.configureTheRealm()
@@ -179,18 +188,29 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
     composable(
+
         route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
             type = NavType.StringType
-            nullable = true  
+            nullable = true
             defaultValue = null
         })
     ) {
+        val viewModel: WriteViewModel = viewModel()
+        val uiState = viewModel.uiState
+        val pagerState = rememberPagerState { Mood.values().size }
+
+        LaunchedEffect(key1 = uiState){
+            Log.d("selectedDiary", "${uiState.selectedDiaryId}")
+        }
         WriteScreen(
             selectedDiary = null,
+            pagerState = pagerState,
             onDeleteConfirmed = {},
-            onBackPressed = onBackPressed)
+            onBackPressed = onBackPressed
+        )
     }
 }
