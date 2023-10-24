@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androiddev.diaryapp.data.repository.MongoDB
+import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.model.Mood
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.androiddev.diaryapp.util.RequestState
@@ -39,12 +40,18 @@ class WriteViewModel(
                 val diary =
                     MongoDB.getSelectedDiary(diaryId = ObjectId.invoke(uiState.selectedDiaryId!!))
                 if (diary is RequestState.Success) {
-                        setTitle(title = diary.data.title)
-                        setDescription(description = diary.data.description)
-                        setMood(mood = Mood.valueOf(diary.data.mood))
+                    setSelectedDiary(diary = diary.data)
+                    setTitle(title = diary.data.title)
+                    setDescription(description = diary.data.description)
+                    setMood(mood = Mood.valueOf(diary.data.mood))
                 }
             }
         }
+    }
+
+
+    private fun setSelectedDiary(diary: Diary) {
+        uiState = uiState.copy(selectedDiary = diary)
     }
 
     fun setTitle(title: String) {
@@ -55,13 +62,34 @@ class WriteViewModel(
         uiState = uiState.copy(description = description)
     }
 
-    fun setMood(mood: Mood) {
+    private fun setMood(mood: Mood) {
         uiState = uiState.copy(mood = mood)
+    }
+
+    fun insertDiary(
+        diary: Diary,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = MongoDB.addNewDiary(diary = diary)
+            if(result is RequestState.Success){
+                withContext(Dispatchers.Main){
+                    onSuccess()
+                }
+            }
+            else if(result is RequestState.Error){
+                withContext(Dispatchers.Main){
+                    onError(result.error.message.toString())
+                }
+            }
+        }
     }
 }
 
 data class UiState(
     val selectedDiaryId: String? = null,
+    val selectedDiary: Diary? = null,
     val title: String = "",
     val description: String = "",
     val mood: Mood = Mood.Neutral
