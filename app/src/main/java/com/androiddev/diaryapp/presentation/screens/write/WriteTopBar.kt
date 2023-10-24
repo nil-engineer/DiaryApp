@@ -30,6 +30,7 @@ import com.androiddev.diaryapp.presentation.components.DisplayAlertDialog
 @Composable
 fun WriteTopBar(
     selectedDiary: Diary?,
+    moodName: () -> String,
     onDeleteConfirmed: () -> Unit,
     onBackPressed: () -> Unit
 ) {
@@ -46,7 +47,7 @@ fun WriteTopBar(
             Column {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Happy",
+                    text = moodName(),
                     style = TextStyle(
                         fontSize = MaterialTheme.typography.titleLarge.fontSize,
                         fontWeight = FontWeight.Bold
@@ -72,7 +73,7 @@ fun WriteTopBar(
                     contentDescription = "Date Icon"
                 )
             }
-            if(selectedDiary != null){
+            if (selectedDiary != null) {
                 DeleteDiaryAction(
                     selectedDiary = selectedDiary,
                     onDeleteConfirmed = onDeleteConfirmed
