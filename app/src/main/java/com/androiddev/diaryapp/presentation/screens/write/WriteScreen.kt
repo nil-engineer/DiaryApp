@@ -12,8 +12,11 @@ import com.androiddev.diaryapp.navigation.Screen
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun WriteScreen(
+    uiState: UiState,
     selectedDiary: Diary?,
     pagerState: PagerState,
+    onTitleChanged: (String) -> Unit,
+    onDescriptionChanged: (String) -> Unit,
     onDeleteConfirmed: () -> Unit,
     onBackPressed: () -> Unit
 ) {
@@ -28,10 +31,10 @@ fun WriteScreen(
         content = {
             WriteContent(
                 pagerState = pagerState,
-                title = "",
-                onTitleChanged = {},
-                description = "",
-                onDescriptionChanged = {},
+                title = uiState.title,
+                onTitleChanged = onTitleChanged,
+                description = uiState.description,
+                onDescriptionChanged = onDescriptionChanged,
                 paddingValues = it
             )
         }

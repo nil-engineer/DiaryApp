@@ -191,7 +191,6 @@ fun NavGraphBuilder.homeRoute(
 @OptIn(ExperimentalFoundationApi::class)
 fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
     composable(
-
         route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
             type = NavType.StringType
@@ -201,14 +200,17 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
     ) {
         val viewModel: WriteViewModel = viewModel()
         val uiState = viewModel.uiState
-        val pagerState = rememberPagerState { Mood.values().size }
+        val pagerState = rememberPagerState(pageCount = { Mood.values().size })
 
         LaunchedEffect(key1 = uiState){
             Log.d("selectedDiary", "${uiState.selectedDiaryId}")
         }
         WriteScreen(
+            uiState = uiState,
             selectedDiary = null,
             pagerState = pagerState,
+            onTitleChanged = {viewModel.setTitle(title = it)},
+            onDescriptionChanged = {viewModel.setDescription(description = it)},
             onDeleteConfirmed = {},
             onBackPressed = onBackPressed
         )
