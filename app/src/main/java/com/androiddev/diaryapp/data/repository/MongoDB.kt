@@ -5,6 +5,7 @@ import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.RequestState
 import com.androiddev.diaryapp.util.toInstant
 import io.realm.kotlin.Realm
+import io.realm.kotlin.ext.asFlow
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.log.LogLevel
 import io.realm.kotlin.mongodb.App
@@ -50,8 +51,8 @@ object MongoDB : MongoRepository {
                     .map { result ->
                         RequestState.Success(
                             data = result.list.groupBy {
-                            it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-                        })
+                                it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                            })
                     }
             } catch (e: Exception) {
                 flow { emit(RequestState.Error(e)) }
@@ -61,34 +62,31 @@ object MongoDB : MongoRepository {
         }
     }
 
-    override fun getSelectedDiary(diaryId: ObjectId): RequestState<Diary> {
-        return if(user != null){
-            try{
-                val diary = realm.query<Diary>(query = "_id == $0", diaryId).find().first()
-                RequestState.Success(data = diary)
+    override fun getSelectedDiary(diaryId: ObjectId): Flow<RequestState<Diary>> {
+        return if (user != null) {
+            try {
+                realm.query<Diary>(query = "_id == $0", diaryId).asFlow().map {
+                    RequestState.Success(data = it.list.first())
+                }
+            } catch (e: Exception) {
+                flow { emit(RequestState.Error(e)) }
             }
-            catch (e: Exception){
-                RequestState.Error(e)
-            }
-        }
-        else{
-            RequestState.Error(UserNotAuthenticatedException())
+        } else {
+            flow { emit(RequestState.Error(UserNotAuthenticatedException())) }
         }
     }
 
-    override suspend fun addNewDiary(diary: Diary): RequestState<Diary> {
-        return if(user != null){
+    override suspend fun insertDiary(diary: Diary): RequestState<Diary> {
+        return if (user != null) {
             realm.write {
-                try{
+                try {
                     val addedDiary = copyToRealm(diary.apply { ownerId = user.id })
                     RequestState.Success(data = addedDiary)
-                }
-                catch(e: Exception){
+                } catch (e: Exception) {
                     RequestState.Error(e)
                 }
             }
-        }
-        else{
+        } else {
             RequestState.Error(UserNotAuthenticatedException())
         }
     }
