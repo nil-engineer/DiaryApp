@@ -5,9 +5,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.model.Mood
-import com.androiddev.diaryapp.navigation.Screen
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -22,6 +22,9 @@ fun WriteScreen(
     onBackPressed: () -> Unit,
     onSaveClicked: (Diary) -> Unit
 ) {
+    LaunchedEffect(key1 = uiState.mood) {
+        pagerState.scrollToPage(Mood.valueOf(uiState.mood.name).ordinal)
+    }
     Scaffold(
         topBar = {
             WriteTopBar(
