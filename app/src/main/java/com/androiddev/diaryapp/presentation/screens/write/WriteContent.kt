@@ -26,15 +26,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.model.Mood
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -50,6 +56,12 @@ fun WriteContent(
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(key1 = scrollState.maxValue) {
+        scrollState.scrollTo(scrollState.maxValue)
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,7 +89,8 @@ fun WriteContent(
                 )
             }
             Spacer(modifier = Modifier.height(30.dp))
-            TextField(modifier = Modifier.fillMaxWidth(),
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = title,
                 onValueChange = onTitleChanged,
                 placeholder = {
@@ -92,11 +105,19 @@ fun WriteContent(
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next
                 ),
-                keyboardActions = KeyboardActions(onNext = {}),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        scope.launch {
+                            scrollState.animateScrollTo(Int.MAX_VALUE)
+                            focusManager.moveFocus(FocusDirection.Down)
+                        }
+                    }),
                 maxLines = 1,
-                singleLine = true)
+                singleLine = true
+            )
 
-            TextField(modifier = Modifier.fillMaxWidth(),
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = description,
                 onValueChange = onDescriptionChanged,
                 placeholder = {
@@ -111,7 +132,10 @@ fun WriteContent(
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next
                 ),
-                keyboardActions = KeyboardActions(onNext = {}))
+                keyboardActions = KeyboardActions(onNext = {
+                    focusManager.clearFocus()
+                })
+            )
         }
         Column(verticalArrangement = Arrangement.Bottom) {
             Spacer(modifier = Modifier.height(12.dp))
