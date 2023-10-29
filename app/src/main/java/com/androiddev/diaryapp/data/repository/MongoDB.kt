@@ -5,6 +5,7 @@ import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.RequestState
 import com.androiddev.diaryapp.util.toInstant
 import io.realm.kotlin.Realm
+import io.realm.kotlin.delete
 import io.realm.kotlin.ext.asFlow
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.log.LogLevel
@@ -95,16 +96,36 @@ object MongoDB : MongoRepository {
         return if (user != null) {
             realm.write {
                 val queriedDiary = query<Diary>(query = "_id == $0", diary._id).first().find()
-                if(queriedDiary != null){
+                if (queriedDiary != null) {
                     queriedDiary.title = diary.title
                     queriedDiary.description = diary.description
-                    queriedDiary.mood =diary.mood
+                    queriedDiary.mood = diary.mood
                     queriedDiary.images = diary.images
                     queriedDiary.date = diary.date
                     RequestState.Success(data = queriedDiary)
-                }
-                else{
+                } else {
                     RequestState.Error(error = Exception("Queried Diary does not exist."))
+                }
+            }
+        } else {
+            RequestState.Error(UserNotAuthenticatedException())
+        }
+    }
+
+    override suspend fun deleteDiary(id: ObjectId): RequestState<Diary> {
+        return if (user != null) {
+            realm.write {
+                val diary = query<Diary>(query = "_id == $0 AND ownerId == $1", id, user.id)
+                    .first().find()
+                if (diary != null) {
+                    try {
+                        delete(diary)
+                        RequestState.Success(data = diary)
+                    } catch (e: Exception) {
+                        RequestState.Error(e)
+                    }
+                } else {
+                    RequestState.Error(Exception("Diary does not exist."))
                 }
             }
         } else {
