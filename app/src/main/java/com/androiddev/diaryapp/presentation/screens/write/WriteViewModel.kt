@@ -75,7 +75,7 @@ class WriteViewModel(
     }
 
     fun updateDateTime(zonedDateTime: ZonedDateTime) {
-        uiState = uiState.copy(updatedDateTime = zonedDateTime.toInstant().toRealmInstant())
+            uiState = uiState.copy(updatedDateTime = zonedDateTime.toInstant().toRealmInstant())
     }
 
     fun upsertDiary(

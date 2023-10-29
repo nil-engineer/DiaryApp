@@ -120,6 +120,13 @@ fun WriteTopBar(
                     currentDate = LocalDate.now()
                     currentTime = LocalTime.now()
                     dateTimeUpdated = false
+                    onDateTimeUpdated(
+                        ZonedDateTime.of(
+                            currentDate,
+                            currentTime,
+                            ZoneId.systemDefault()
+                        )
+                    )
                 }) {
                     Icon(
                         imageVector = Icons.Default.Close,
