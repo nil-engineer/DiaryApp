@@ -2,11 +2,9 @@ package com.androiddev.diaryapp.data.repository
 
 import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.util.Constants.APP_ID
-import com.androiddev.diaryapp.util.RequestState
+import com.androiddev.diaryapp.model.RequestState
 import com.androiddev.diaryapp.util.toInstant
 import io.realm.kotlin.Realm
-import io.realm.kotlin.delete
-import io.realm.kotlin.ext.asFlow
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.log.LogLevel
 import io.realm.kotlin.mongodb.App
@@ -17,7 +15,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.mongodb.kbson.ObjectId
 import java.time.ZoneId
-import kotlin.contracts.Returns
 
 object MongoDB : MongoRepository {
     private val app = App.create(APP_ID)

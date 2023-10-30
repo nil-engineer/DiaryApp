@@ -34,7 +34,8 @@ import com.androiddev.diaryapp.presentation.screens.write.WriteScreen
 import com.androiddev.diaryapp.presentation.screens.write.WriteViewModel
 import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
-import com.androiddev.diaryapp.util.RequestState
+import com.androiddev.diaryapp.model.RequestState
+import com.androiddev.diaryapp.model.rememberGalleryState
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import io.realm.kotlin.mongodb.App
