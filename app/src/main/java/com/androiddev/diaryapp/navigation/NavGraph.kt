@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.androiddev.diaryapp.data.repository.MongoDB
+import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.Mood
 import com.androiddev.diaryapp.presentation.components.DisplayAlertDialog
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationScreen
@@ -195,6 +196,7 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
         val context = LocalContext.current
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState(pageCount = { Mood.values().size })
+        val galleryState = rememberGalleryState()
         val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
         LaunchedEffect(key1 = uiState) {
             Log.d("selectedDiary", "${uiState.selectedDiaryId}")
@@ -203,6 +205,7 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
             uiState = uiState,
             moodName = { Mood.values()[pageNumber].name },
             pagerState = pagerState,
+            galleryState = galleryState,
             onTitleChanged = { viewModel.setTitle(title = it) },
             onDescriptionChanged = { viewModel.setDescription(description = it) },
             onDeleteConfirmed = {
@@ -223,6 +226,11 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
                     })
+            },
+            onImageSelect = {
+                galleryState.addImage(
+                    GalleryImage(image = it,
+                        remoteImagePath = ""))
             }
         )
     }
