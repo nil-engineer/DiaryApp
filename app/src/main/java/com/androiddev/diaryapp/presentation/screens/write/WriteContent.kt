@@ -43,6 +43,7 @@ import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.model.GalleryState
 import com.androiddev.diaryapp.model.Mood
 import com.androiddev.diaryapp.presentation.components.GalleryUploader
+import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -158,10 +159,13 @@ fun WriteContent(
             Button(
                 modifier = Modifier.fillMaxWidth().height(54.dp), onClick = {
                     if (uiState.title.isNotEmpty() && uiState.description.isNotEmpty()) {
-                        onSaveClicked(Diary().apply {
-                            this.title = uiState.title
-                            this.description = uiState.description
-                        })
+                        onSaveClicked(
+                            Diary().apply {
+                                this.title = uiState.title
+                                this.description = uiState.description
+                                this.images =
+                                    galleryState.images.map { it.remoteImagePath }.toRealmList()
+                            })
                     } else {
                         Toast.makeText(context, "Fields cannot be empty.", Toast.LENGTH_SHORT)
                             .show()
