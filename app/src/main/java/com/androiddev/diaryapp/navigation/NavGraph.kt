@@ -100,7 +100,7 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit, onDataLoaded
                 oneTapState.open()
                 viewModel.setLoading(true)
             },
-            onTokenIdReceived = { tokenId ->
+            onSuccessfulFirebaseSignIn = { tokenId ->
                 viewModel.signInWithMongoAtlas(
                     tokenId = tokenId,
                     onSuccess = {
@@ -114,6 +114,10 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit, onDataLoaded
 
                     }
                 )
+            },
+            onFailedFirebaseSignIn = {
+                messageBarState.addError(it)
+                viewModel.setLoading(false)
             },
             onDialogDismissed = { message ->
                 messageBarState.addError(Exception(message))
@@ -196,7 +200,6 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
         val context = LocalContext.current
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState(pageCount = { Mood.values().size })
-        val galleryState = rememberGalleryState()
         val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
         LaunchedEffect(key1 = uiState) {
             Log.d("selectedDiary", "${uiState.selectedDiaryId}")

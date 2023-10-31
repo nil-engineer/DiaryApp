@@ -81,6 +81,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
 
+
     // Room components
     implementation ("androidx.room:room-runtime:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")

@@ -19,6 +19,8 @@ import com.androiddev.diaryapp.navigation.Screen
 import com.androiddev.diaryapp.navigation.SetupNavGraph
 import com.androiddev.diaryapp.ui.theme.DiaryAppTheme
 import com.androiddev.diaryapp.util.Constants.APP_ID
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
 import io.realm.kotlin.mongodb.App
 
 @ExperimentalMaterial3Api
@@ -31,6 +33,7 @@ class MainActivity : ComponentActivity() {
             keepSplashOpened
         }
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        FirebaseApp.initializeApp(this)
         MongoDB.configureTheRealm()
         setContent {
             DiaryAppTheme {

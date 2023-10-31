@@ -1,6 +1,7 @@
 package com.androiddev.diaryapp.presentation.screens.auth
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -11,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.androiddev.diaryapp.util.Constants.CLIENT_ID
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.ktx.Firebase
 import com.stevdzasan.messagebar.ContentWithMessageBar
 import com.stevdzasan.messagebar.MessageBarState
 import com.stevdzasan.onetap.OneTapSignInState
@@ -26,7 +30,8 @@ fun AuthenticationScreen(
     oneTapState: OneTapSignInState,
     messageBarState: MessageBarState,
     onButtonClicked: () -> Unit,
-    onTokenIdReceived: (String) -> Unit,
+    onSuccessfulFirebaseSignIn: (String) -> Unit,
+    onFailedFirebaseSignIn: (Exception) -> Unit,
     onDialogDismissed: (String) -> Unit,
     navigateToHome: () -> Unit
 ) {
@@ -46,8 +51,21 @@ fun AuthenticationScreen(
     OneTapSignInWithGoogle(
         state = oneTapState,
         clientId = CLIENT_ID,
-        onTokenIdReceived = { tokenid ->
-            onTokenIdReceived(tokenid)
+        onTokenIdReceived = { tokenId ->
+//            Log.d("tooooken", "AuthenticationScreen: " + tokenId)
+            val credential = GoogleAuthProvider.getCredential(tokenId, null)
+//            Log.d("credentiallllll", "AuthenticationScreen2: " + credential.provider)
+            FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener { task ->
+//                    Log.d("TASKKKK", "AuthenticationScreen: " + task.result)
+                    if (task.isSuccessful) {
+                        onSuccessfulFirebaseSignIn(tokenId)
+                    } else {
+                        task.exception?.let { it -> onFailedFirebaseSignIn(it) }
+                    }
+                }
+            //this code should not be here if we use firebase auth.
+            onSuccessfulFirebaseSignIn(tokenId)
         },
         onDialogDismissed = { message ->
             onDialogDismissed(message)
