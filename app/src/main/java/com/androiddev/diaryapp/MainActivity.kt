@@ -16,12 +16,14 @@ import com.androiddev.diaryapp.ui.theme.DiaryAppTheme
 import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.retryUploadingImageToFirebase
 import com.google.firebase.FirebaseApp
+import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
 
