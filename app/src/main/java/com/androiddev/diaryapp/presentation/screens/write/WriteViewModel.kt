@@ -16,8 +16,10 @@ import com.androiddev.diaryapp.model.Mood
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.androiddev.diaryapp.model.RequestState
 import com.androiddev.diaryapp.model.rememberGalleryState
+import com.androiddev.diaryapp.util.fetchImagesFromFirebase
 import com.androiddev.diaryapp.util.toRealmInstant
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import io.realm.kotlin.types.RealmInstant
@@ -64,6 +66,18 @@ class WriteViewModel(
                             setTitle(title = diary.data.title)
                             setDescription(description = diary.data.description)
                             setMood(mood = Mood.valueOf(diary.data.mood))
+                            fetchImagesFromFirebase(
+                                remoteImagePaths = diary.data.images,
+                                onImageDownload = { downloadedImage ->
+                                    galleryState.addImage(
+                                        GalleryImage(
+                                            image = downloadedImage,
+                                            remoteImagePath = extractImagePath(
+                                                fullImageUrl = downloadedImage.toString())
+                                        )
+                                    )
+                                }
+                            )
                         }
                     }
             }
@@ -191,12 +205,18 @@ class WriteViewModel(
 
     }
 
-    private fun uploadImagesToFirebase(){
+    private fun uploadImagesToFirebase() {
         val storage = FirebaseStorage.getInstance().reference
-        galleryState.images.forEach{galleryImage ->
+        galleryState.images.forEach { galleryImage ->
             val imagePath = storage.child(galleryImage.remoteImagePath)
             imagePath.putFile(galleryImage.image)
         }
+    }
+
+    private fun extractImagePath(fullImageUrl: String): String {
+        val chunks = fullImageUrl.split("%2F")
+        val imageName = chunks[2].split("?").first()
+        return "images/${Firebase.auth.currentUser?.uid}/$imageName"
     }
 }
 
