@@ -77,7 +77,8 @@ class WriteViewModel @Inject constructor(
                                         GalleryImage(
                                             image = downloadedImage,
                                             remoteImagePath = extractImagePath(
-                                                fullImageUrl = downloadedImage.toString())
+                                                fullImageUrl = downloadedImage.toString()
+                                            )
                                         )
                                     )
                                 }
@@ -120,6 +121,7 @@ class WriteViewModel @Inject constructor(
             } else {
                 insertDiary(diary = diary, onSuccess = onSuccess, onError = onError)
             }
+//            galleryState.clearImagesToBeDeleted()
         }
     }
 
@@ -161,6 +163,8 @@ class WriteViewModel @Inject constructor(
         })
         if (result is RequestState.Success) {
             uploadImagesToFirebase()
+            deleteImagesFromFirebase()
+
             withContext(Dispatchers.Main) {
                 onSuccess()
             }
@@ -217,12 +221,14 @@ class WriteViewModel @Inject constructor(
             imagePath.putFile(galleryImage.image)
                 .addOnProgressListener {
                     val sessionUri = it.uploadSessionUri
-                    if(sessionUri != null){
-                        viewModelScope.launch(Dispatchers.IO){
+                    if (sessionUri != null) {
+                        viewModelScope.launch(Dispatchers.IO) {
                             imageToUploadDao.addImageToUpload(
-                                ImageToUpload(remoteImagePath = galleryImage.remoteImagePath,
+                                ImageToUpload(
+                                    remoteImagePath = galleryImage.remoteImagePath,
                                     imageUri = galleryImage.image.toString(),
-                                    sessionUri = sessionUri.toString())
+                                    sessionUri = sessionUri.toString()
+                                )
                             )
                         }
                     }
@@ -230,10 +236,17 @@ class WriteViewModel @Inject constructor(
         }
     }
 
-    private fun deleteImagesFromFirebase(images: List<String>){
+    private fun deleteImagesFromFirebase(images: List<String>? = null) {
         val storage = FirebaseStorage.getInstance().reference
-        images.forEach{ remotePath ->
-            storage.child(remotePath).delete()
+        if(images != null){
+            images.forEach { remotePath ->
+                storage.child(remotePath).delete()
+            }
+        }
+        else{
+            galleryState.imagesToBeDeleted.map { it.remoteImagePath }.forEach{
+                storage.child(it).delete()
+            }
         }
     }
 
