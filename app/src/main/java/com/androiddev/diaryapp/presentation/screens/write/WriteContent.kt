@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.androiddev.diaryapp.model.Diary
+import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.GalleryState
 import com.androiddev.diaryapp.model.Mood
 import com.androiddev.diaryapp.presentation.components.GalleryUploader
@@ -58,7 +59,8 @@ fun WriteContent(
     onDescriptionChanged: (String) -> Unit,
     paddingValues: PaddingValues,
     onSaveClicked: (Diary) -> Unit,
-    onImageSelect: (Uri) -> Unit
+    onImageSelect: (Uri) -> Unit,
+    onImageClicked:(GalleryImage) -> Unit
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -151,7 +153,7 @@ fun WriteContent(
                     focusManager.clearFocus()
                 },
                 onImageSelect = onImageSelect,
-                onImageClicked = {}
+                onImageClicked = onImageClicked
 
             )
             Spacer(modifier = Modifier.height(12.dp))

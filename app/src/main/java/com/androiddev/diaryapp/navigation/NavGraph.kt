@@ -238,7 +238,8 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                 viewModel.addImage(
                     image = it,
                     imageType = type)
-            }
+            },
+            onImageDeleteClicked = {}
         )
     }
 }
