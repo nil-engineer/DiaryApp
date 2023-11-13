@@ -161,6 +161,9 @@ fun NavGraphBuilder.homeRoute(
 
                 }
             },
+            dateIsSelected = viewModel.dateIsSelected,
+            onDateSelected = { viewModel.getDiaries(it) },
+            onDateReset = { viewModel.getDiaries() },
             onSignOutClicked = {
                 signOutDialogOpened = true
             },
