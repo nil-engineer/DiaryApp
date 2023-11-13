@@ -24,6 +24,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        ksp{
+//            arguments{
+                arg("room.schemaLocation", "$projectDir/schemas")
+//            }
+        }
     }
 
     buildTypes {
@@ -39,6 +45,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
+
+
     }
     kotlinOptions {
         jvmTarget = "17"
