@@ -28,7 +28,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -43,7 +42,7 @@ import com.androiddev.diaryapp.model.Diary
 import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.GalleryState
 import com.androiddev.diaryapp.model.Mood
-import com.androiddev.diaryapp.presentation.components.GalleryUploader
+import com.androiddev.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

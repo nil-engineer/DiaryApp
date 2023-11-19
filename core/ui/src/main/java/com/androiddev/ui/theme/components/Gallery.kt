@@ -37,7 +37,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.GalleryState
-import com.androiddev.diaryapp.ui.theme.Elevation
+import com.androiddev.ui.theme.Elevation
 import kotlin.math.max
 
 @Composable
@@ -75,7 +75,7 @@ fun Gallery(
                 Spacer(modifier = Modifier.width(spaceBetween))
             }
             if (remainingImages.value > 0) {
-                LastImageOverlay(
+                com.androiddev.ui.components.LastImageOverlay(
                     imageSize = imageSize,
                     imageShape = imageShape,
                     remainingImages = remainingImages.value
@@ -121,14 +121,17 @@ fun GalleryUploader(
             }
         }
         Row {
-            AddImageButton(imageSize = imageSize, imageShape = imageShape, onClick = {
-                onAddClicked()
-                multiplePhotoPicker.launch(
-                    PickVisualMediaRequest(
-                        ActivityResultContracts.PickVisualMedia.ImageOnly
+            com.androiddev.ui.components.AddImageButton(
+                imageSize = imageSize,
+                imageShape = imageShape,
+                onClick = {
+                    onAddClicked()
+                    multiplePhotoPicker.launch(
+                        PickVisualMediaRequest(
+                            ActivityResultContracts.PickVisualMedia.ImageOnly
+                        )
                     )
-                )
-            }
+                }
             )
             Spacer(modifier = Modifier.width(spaceBetween))
             galleryState.images.take(numberOfVisibleImages.value).forEach { galleryImage ->
@@ -146,7 +149,7 @@ fun GalleryUploader(
                 Spacer(modifier = Modifier.width(spaceBetween))
             }
             if (remainingImages.value > 0) {
-                LastImageOverlay(
+                com.androiddev.ui.components.LastImageOverlay(
                     imageSize = imageSize,
                     imageShape = imageShape,
                     remainingImages = remainingImages.value

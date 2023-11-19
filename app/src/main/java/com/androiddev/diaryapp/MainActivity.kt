@@ -13,9 +13,8 @@ import com.androiddev.diaryapp.data.database.entity.ImageToUploadDao
 import com.androiddev.diaryapp.data.repository.MongoDB
 import com.androiddev.diaryapp.navigation.Screen
 import com.androiddev.diaryapp.navigation.SetupNavGraph
-import com.androiddev.diaryapp.ui.theme.DiaryAppTheme
+import com.androiddev.ui.theme.DiaryAppTheme
 import com.androiddev.diaryapp.util.Constants.APP_ID
-import com.androiddev.diaryapp.util.fetchImagesFromFirebase
 import com.androiddev.diaryapp.util.retryDeletingImageFromFirebase
 import com.androiddev.diaryapp.util.retryUploadingImageToFirebase
 import com.google.firebase.FirebaseApp

@@ -25,9 +25,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.androiddev.diaryapp.data.repository.MongoDB
-import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.Mood
-import com.androiddev.diaryapp.presentation.components.DisplayAlertDialog
+import com.androiddev.ui.components.DisplayAlertDialog
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationScreen
 import com.androiddev.diaryapp.presentation.screens.auth.AuthenticationViewModel
 import com.androiddev.diaryapp.presentation.screens.home.HomeScreen
@@ -37,7 +36,6 @@ import com.androiddev.diaryapp.presentation.screens.write.WriteViewModel
 import com.androiddev.diaryapp.util.Constants.APP_ID
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.androiddev.diaryapp.model.RequestState
-import com.androiddev.diaryapp.model.rememberGalleryState
 import com.stevdzasan.messagebar.rememberMessageBarState
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import io.realm.kotlin.mongodb.App
