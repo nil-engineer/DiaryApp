@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.androiddev.ui"
+    namespace = "com.androiddev.util"
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
@@ -42,15 +42,12 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.material3.compose)
-    implementation(libs.activity.compose)
-    implementation(libs.compose.tooling.preview)
-    implementation(libs.coil)
-    implementation(libs.desugar.jdk)
+    implementation(libs.core.ktx)
+    implementation(libs.firebase.storage)
     implementation(libs.realm.sync)
     implementation(libs.coroutines.core)
-
-    implementation(project(":core:util"))
-
+    implementation(libs.desugar.jdk)
+    implementation(libs.material3.compose)
+    implementation(libs.activity.compose)
+    implementation(project(":core:ui"))
 }

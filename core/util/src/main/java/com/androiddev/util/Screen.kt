@@ -1,6 +1,7 @@
-package com.androiddev.diaryapp.navigation
+package com.androiddev.util
 
-import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
+import com.androiddev.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
+
 
 sealed class Screen(val route: String) {
     object Authentication : Screen(route = "authentication_screen")

@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.connectivity
+package com.androiddev.util.connectivity
 
 import kotlinx.coroutines.flow.Flow
 

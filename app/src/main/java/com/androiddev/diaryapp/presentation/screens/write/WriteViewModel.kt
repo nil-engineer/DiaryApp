@@ -13,12 +13,12 @@ import com.androiddev.diaryapp.data.database.entity.ImageToDelete
 import com.androiddev.diaryapp.data.database.entity.ImageToUpload
 import com.androiddev.diaryapp.data.database.entity.ImageToUploadDao
 import com.androiddev.diaryapp.data.repository.MongoDB
-import com.androiddev.diaryapp.model.Diary
+import com.androiddev.util.model.Diary
 import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.GalleryState
-import com.androiddev.diaryapp.model.Mood
+import com.androiddev.util.model.Mood
 import com.androiddev.diaryapp.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
-import com.androiddev.diaryapp.model.RequestState
+import com.androiddev.util.model.RequestState
 import com.androiddev.diaryapp.util.fetchImagesFromFirebase
 import com.androiddev.diaryapp.util.toRealmInstant
 import com.google.firebase.auth.ktx.auth

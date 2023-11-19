@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.util
+package com.androiddev.util
 
 import android.net.Uri
 import android.util.Log

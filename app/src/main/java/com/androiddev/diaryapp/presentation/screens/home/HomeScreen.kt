@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.androiddev.diaryapp.R
 import com.androiddev.diaryapp.data.repository.Diaries
-import com.androiddev.diaryapp.model.RequestState
+import com.androiddev.util.model.RequestState
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)

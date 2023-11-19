@@ -1,6 +1,6 @@
-package com.androiddev.diaryapp.model
+package com.androiddev.util.model
 
-import com.androiddev.diaryapp.util.toRealmInstant
+import com.androiddev.util.toRealmInstant
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmList

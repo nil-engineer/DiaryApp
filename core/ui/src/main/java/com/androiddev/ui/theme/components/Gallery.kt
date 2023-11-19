@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.components
+package com.androiddev.ui.theme.components
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,8 +35,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.androiddev.diaryapp.model.GalleryImage
-import com.androiddev.diaryapp.model.GalleryState
+import com.androiddev.ui.GalleryImage
+import com.androiddev.ui.GalleryState
 import com.androiddev.ui.theme.Elevation
 import kotlin.math.max
 

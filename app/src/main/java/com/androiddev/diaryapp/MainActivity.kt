@@ -11,7 +11,6 @@ import androidx.navigation.compose.rememberNavController
 import com.androiddev.diaryapp.data.database.ImageToDeleteDao
 import com.androiddev.diaryapp.data.database.entity.ImageToUploadDao
 import com.androiddev.diaryapp.data.repository.MongoDB
-import com.androiddev.diaryapp.navigation.Screen
 import com.androiddev.diaryapp.navigation.SetupNavGraph
 import com.androiddev.ui.theme.DiaryAppTheme
 import com.androiddev.diaryapp.util.Constants.APP_ID

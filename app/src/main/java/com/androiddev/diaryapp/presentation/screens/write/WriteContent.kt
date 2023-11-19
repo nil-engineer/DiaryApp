@@ -38,10 +38,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.androiddev.diaryapp.model.Diary
+import com.androiddev.util.model.Diary
 import com.androiddev.diaryapp.model.GalleryImage
 import com.androiddev.diaryapp.model.GalleryState
-import com.androiddev.diaryapp.model.Mood
+import com.androiddev.util.model.Mood
 import com.androiddev.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch

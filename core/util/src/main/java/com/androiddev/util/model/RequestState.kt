@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.model
+package com.androiddev.util.model
 
 sealed class RequestState<out T> {
     object Idle : RequestState<Nothing>()

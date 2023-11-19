@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.util
+package com.androiddev.util
 
 object Constants {
     const val APP_ID = "mydiaryapp-ugdyw"

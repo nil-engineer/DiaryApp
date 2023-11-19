@@ -1,8 +1,8 @@
 package com.androiddev.diaryapp.data.repository
 
-import com.androiddev.diaryapp.model.Diary
+import com.androiddev.util.model.Diary
 import com.androiddev.diaryapp.util.Constants.APP_ID
-import com.androiddev.diaryapp.model.RequestState
+import com.androiddev.util.model.RequestState
 import com.androiddev.diaryapp.util.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query

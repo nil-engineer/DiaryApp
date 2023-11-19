@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.components
+package com.androiddev.ui.theme.components
 
 import android.net.Uri
 import android.widget.Toast
@@ -43,11 +43,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.androiddev.diaryapp.model.Diary
-import com.androiddev.diaryapp.model.Mood
 import com.androiddev.ui.theme.Elevation
-import com.androiddev.diaryapp.util.fetchImagesFromFirebase
-import com.androiddev.diaryapp.util.toInstant
+import com.androiddev.util.fetchImagesFromFirebase
+import com.androiddev.util.model.Diary
+import com.androiddev.util.model.Mood
+import com.androiddev.util.toInstant
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
