@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.screens.auth
+package com.androiddev.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.androiddev.diaryapp.R
 import com.androiddev.ui.components.GoogleButton
 
 @Composable
