@@ -1,4 +1,4 @@
-package com.androiddev.ui.theme.components
+package com.androiddev.util
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -75,7 +75,7 @@ fun Gallery(
                 Spacer(modifier = Modifier.width(spaceBetween))
             }
             if (remainingImages.value > 0) {
-                com.androiddev.ui.components.LastImageOverlay(
+                LastImageOverlay(
                     imageSize = imageSize,
                     imageShape = imageShape,
                     remainingImages = remainingImages.value
@@ -121,17 +121,14 @@ fun GalleryUploader(
             }
         }
         Row {
-            com.androiddev.ui.components.AddImageButton(
-                imageSize = imageSize,
-                imageShape = imageShape,
-                onClick = {
-                    onAddClicked()
-                    multiplePhotoPicker.launch(
-                        PickVisualMediaRequest(
-                            ActivityResultContracts.PickVisualMedia.ImageOnly
-                        )
+            AddImageButton(imageSize = imageSize, imageShape = imageShape, onClick = {
+                onAddClicked()
+                multiplePhotoPicker.launch(
+                    PickVisualMediaRequest(
+                        ActivityResultContracts.PickVisualMedia.ImageOnly
                     )
-                }
+                )
+            }
             )
             Spacer(modifier = Modifier.width(spaceBetween))
             galleryState.images.take(numberOfVisibleImages.value).forEach { galleryImage ->
@@ -149,7 +146,7 @@ fun GalleryUploader(
                 Spacer(modifier = Modifier.width(spaceBetween))
             }
             if (remainingImages.value > 0) {
-                com.androiddev.ui.components.LastImageOverlay(
+                LastImageOverlay(
                     imageSize = imageSize,
                     imageShape = imageShape,
                     remainingImages = remainingImages.value

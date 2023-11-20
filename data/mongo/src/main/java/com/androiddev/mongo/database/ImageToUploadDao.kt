@@ -1,9 +1,10 @@
-package com.androiddev.diaryapp.data.database.entity
+package com.androiddev.mongo.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.androiddev.mongo.database.entity.ImageToUpload
 
 @Dao
 interface ImageToUploadDao {

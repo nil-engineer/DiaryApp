@@ -1,13 +1,9 @@
-package com.androiddev.diaryapp.data.database
+package com.androiddev.mongo.database
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.androiddev.diaryapp.data.database.entity.ImageToDelete
-import com.androiddev.diaryapp.data.database.entity.ImageToUpload
-import com.androiddev.diaryapp.data.database.entity.ImageToUploadDao
+import com.androiddev.mongo.database.entity.ImageToDelete
+import com.androiddev.mongo.database.entity.ImageToUpload
 
 @Database(
     entities = [ImageToUpload::class, ImageToDelete::class],

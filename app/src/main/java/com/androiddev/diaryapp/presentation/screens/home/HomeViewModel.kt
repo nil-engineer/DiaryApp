@@ -6,12 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.androiddev.mongo.database.ImageToDeleteDao
+import com.androiddev.mongo.database.entity.ImageToDelete
+import com.androiddev.mongo.repository.Diaries
+import com.androiddev.mongo.repository.MongoDB
 import com.androiddev.util.connectivity.ConnectivityObserver
 import com.androiddev.util.connectivity.NetworkConnectivityObserver
-import com.androiddev.diaryapp.data.database.ImageToDeleteDao
-import com.androiddev.diaryapp.data.database.entity.ImageToDelete
-import com.androiddev.diaryapp.data.repository.Diaries
-import com.androiddev.diaryapp.data.repository.MongoDB
 import com.androiddev.util.model.RequestState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage

@@ -1,4 +1,4 @@
-package com.androiddev.ui.theme.components
+package com.androiddev.util
 
 import android.net.Uri
 import android.widget.Toast
@@ -43,11 +43,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.androiddev.ui.components.Gallery
 import com.androiddev.ui.theme.Elevation
-import com.androiddev.util.fetchImagesFromFirebase
 import com.androiddev.util.model.Diary
 import com.androiddev.util.model.Mood
-import com.androiddev.util.toInstant
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -109,10 +108,7 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
             tonalElevation = Elevation.Level1
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                com.androiddev.ui.components.DiaryHeader(
-                    moodName = diary.mood,
-                    time = diary.date.toInstant()
-                )
+                DiaryHeader(moodName = diary.mood, time = diary.date.toInstant())
                 Text(
                     modifier = Modifier.padding(all = 14.dp),
                     text = diary.description,
@@ -121,7 +117,7 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                     overflow = TextOverflow.Ellipsis
                 )
                 if (diary.images.isNotEmpty()) {
-                    com.androiddev.ui.components.ShowGalleryButton(
+                    ShowGalleryButton(
                         galleryOpened = galleryOpened,
                         galleryLoading = galleryLoading,
                         onClick = {
@@ -138,7 +134,7 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
                     )
                 ) {
                     Column(modifier = Modifier.padding(all = 14.dp)) {
-                        com.androiddev.ui.components.Gallery(images = downloadedImages)
+                        Gallery(images = downloadedImages)
                     }
                 }
             }
@@ -202,7 +198,7 @@ fun ShowGalleryButton(
 @Composable
 @Preview
 fun DiaryHolderPreview() {
-    com.androiddev.ui.components.DiaryHolder(diary = Diary().apply {
+    DiaryHolder(diary = Diary().apply {
         title = "my diary"
         description =
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."

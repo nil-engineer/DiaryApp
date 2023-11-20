@@ -39,15 +39,25 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = ProjectConfig.extensionVersion
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
+    implementation(libs.compose.tooling.preview)
     implementation(libs.core.ktx)
     implementation(libs.firebase.storage)
     implementation(libs.realm.sync)
     implementation(libs.coroutines.core)
-    implementation(libs.desugar.jdk)
     implementation(libs.material3.compose)
     implementation(libs.activity.compose)
+    implementation(libs.coil)
+    implementation(libs.desugar.jdk)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso.core)
     implementation(project(":core:ui"))
 }

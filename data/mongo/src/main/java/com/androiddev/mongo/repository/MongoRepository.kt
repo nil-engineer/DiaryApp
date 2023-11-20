@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.data.repository
+package com.androiddev.mongo.repository
 
 import com.androiddev.util.model.Diary
 import com.androiddev.util.model.RequestState

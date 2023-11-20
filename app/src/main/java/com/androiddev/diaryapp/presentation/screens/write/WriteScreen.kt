@@ -36,9 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.androiddev.ui.GalleryImage
+import com.androiddev.ui.GalleryState
 import com.androiddev.util.model.Diary
-import com.androiddev.diaryapp.model.GalleryImage
-import com.androiddev.diaryapp.model.GalleryState
 import com.androiddev.util.model.Mood
 import java.time.ZonedDateTime
 
