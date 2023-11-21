@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.screens.home
+package com.androiddev.home
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close

@@ -138,4 +138,6 @@ dependencies {
     implementation(project(":core:util"))
     implementation(project(":data:mongo"))
     implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+
 }

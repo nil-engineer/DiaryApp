@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.androiddev.diaryapp.presentation.screens.home
+package com.androiddev.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -30,7 +30,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.androiddev.diaryapp.R
 import com.androiddev.mongo.repository.Diaries
 import com.androiddev.util.model.RequestState
 import java.time.ZonedDateTime
@@ -127,7 +126,7 @@ fun NavigationDrawer(
                 ) {
                     Image(
                         modifier = Modifier.size(250.dp),
-                        painter = painterResource(R.drawable.logo),
+                        painter = painterResource(com.androiddev.ui.R.drawable.logo),
                         contentDescription = "Logo Image"
                     )
                 }
@@ -135,7 +134,7 @@ fun NavigationDrawer(
                     label = {
                         Row(modifier = Modifier.padding(horizontal = 12.dp)) {
                             Icon(
-                                painter = painterResource(R.drawable.google_logo),
+                                painter = painterResource(com.androiddev.ui.R.drawable.google_logo),
                                 contentDescription = "Google Logo"
                             )
                             Spacer(modifier = Modifier.width(12.dp))
