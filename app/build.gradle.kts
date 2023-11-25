@@ -65,7 +65,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.material3.compose)
     implementation(libs.navigation.compose)
     implementation(libs.firebase.storage)
     implementation(libs.room.runtime)
