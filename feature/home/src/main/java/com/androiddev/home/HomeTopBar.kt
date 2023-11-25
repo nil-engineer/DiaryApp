@@ -1,5 +1,6 @@
 package com.androiddev.home
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.material.icons.Icons
@@ -26,10 +27,10 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-@RequiresApi(Build.VERSION_CODES.O)
+@SuppressLint("NewApi")
 @ExperimentalMaterial3Api
 @Composable
-fun HomeTopBar(
+internal fun HomeTopBar(
     scrollBehavior: TopAppBarScrollBehavior,
     onMenuClicked: () -> Unit,
     dateIsSelected: Boolean,
