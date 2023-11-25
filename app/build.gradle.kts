@@ -139,5 +139,6 @@ dependencies {
     implementation(project(":data:mongo"))
     implementation(project(":feature:auth"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:write"))
 
 }

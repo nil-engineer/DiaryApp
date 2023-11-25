@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.screens.write
+package com.androiddev.write
 
 import android.net.Uri
 import android.util.Log

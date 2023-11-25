@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.screens.write
+package com.androiddev.write
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

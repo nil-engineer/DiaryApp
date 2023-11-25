@@ -1,4 +1,4 @@
-package com.androiddev.diaryapp.presentation.screens.write
+package com.androiddev.write
 
 import android.annotation.SuppressLint
 import android.net.Uri
