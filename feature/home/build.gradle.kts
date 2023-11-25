@@ -30,7 +30,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-//        isCoreLibraryDesugaringEnabled = true
+        isCoreLibraryDesugaringEnabled = true
 
     }
     kotlinOptions {
@@ -59,7 +59,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-//    implementation(libs.desugar.jdk)
+    implementation(libs.desugar.jdk)
     implementation(libs.compose.tooling.preview)
     implementation(libs.date.time.picker)
     implementation(libs.date.dialog)
