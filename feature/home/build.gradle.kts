@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("io.realm.kotlin")
+    id("com.google.devtools.ksp")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -28,7 +30,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-        isCoreLibraryDesugaringEnabled = true
+//        isCoreLibraryDesugaringEnabled = true
 
     }
     kotlinOptions {
@@ -54,8 +56,10 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.coroutines.core)
     implementation(libs.realm.sync)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.desugar.jdk)
+//    implementation(libs.desugar.jdk)
     implementation(libs.compose.tooling.preview)
     implementation(libs.date.time.picker)
     implementation(libs.date.dialog)
@@ -65,8 +69,8 @@ dependencies {
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(project(":core:util"))
     implementation(project(":core:ui"))
+    implementation(project(":core:util"))
     implementation(project(":data:mongo"))
 
 }

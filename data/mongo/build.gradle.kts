@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("io.realm.kotlin")
 //    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+//    id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
 
 }
@@ -30,13 +30,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+//        isCoreLibraryDesugaringEnabled = true
 
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     packaging {
         resources {
@@ -52,13 +52,14 @@ dependencies {
     implementation(libs.realm.sync)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    implementation(libs.room.compiler)
-    implementation(libs.hilt.android)
-    implementation(libs.desugar.jdk)
-    ksp(libs.hilt.compiler)
-    implementation(project(":core:util"))
+    ksp(libs.room.compiler)
+//    implementation(libs.hilt.android)
+//    implementation(libs.desugar.jdk)
+//    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
+    implementation(project(":core:util"))
+
 }

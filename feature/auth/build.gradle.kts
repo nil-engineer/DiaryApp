@@ -26,11 +26,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+//        isCoreLibraryDesugaringEnabled = true
+
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -55,11 +57,12 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.coroutines.core)
     implementation(libs.realm.sync)
+//    implementation(libs.desugar.jdk)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(project(":core:util"))
     implementation(project(":core:ui"))
+    implementation(project(":core:util"))
 
 }
