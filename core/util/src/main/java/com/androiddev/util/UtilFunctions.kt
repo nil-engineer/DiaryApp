@@ -1,11 +1,13 @@
 package com.androiddev.util
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.storage.FirebaseStorage
 import io.realm.kotlin.types.RealmInstant
 import java.time.Instant
 
+@SuppressLint("NewApi")
 fun RealmInstant.toInstant(): Instant {
     val sec: Long = this.epochSeconds
     val nano: Int = this.nanosecondsOfSecond
@@ -16,6 +18,7 @@ fun RealmInstant.toInstant(): Instant {
     }
 }
 
+@SuppressLint("NewApi")
 fun Instant.toRealmInstant(): RealmInstant {
     val sec: Long = this.epochSecond
     val nano: Int = this.nano

@@ -1,5 +1,6 @@
 package com.androiddev.util
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -143,6 +144,7 @@ fun DiaryHolder(diary: Diary, onClick: (String) -> Unit) {
     }
 }
 
+@SuppressLint("NewApi")
 @Composable
 fun DiaryHeader(moodName: String, time: Instant) {
     val mood by remember { mutableStateOf(Mood.valueOf(moodName)) }
